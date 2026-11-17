@@ -1,41 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" preserveAspectRatio="xMidYMid slice">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="34%" r="80%"><stop offset="0" stop-color="#2a1611"/><stop offset=".45" stop-color="#150f0c"/><stop offset="1" stop-color="#0b0908"/></radialGradient>
-    <radialGradient id="sun" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#ee6a48"/><stop offset=".7" stop-color="#d2452b"/><stop offset="1" stop-color="#a8301c"/></radialGradient>
+    <radialGradient id="bg" cx="50%" cy="36%" r="85%"><stop offset="0" stop-color="#2c1711"/><stop offset=".42" stop-color="#16100d"/><stop offset="1" stop-color="#0b0908"/></radialGradient>
+    <radialGradient id="sun" cx="40%" cy="34%" r="75%"><stop offset="0" stop-color="#f07250"/><stop offset=".65" stop-color="#d4472c"/><stop offset="1" stop-color="#a22d1a"/></radialGradient>
     <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0908" stop-opacity="0"/><stop offset="1" stop-color="#0b0908"/></linearGradient>
+    <g id="fw" fill="none" stroke-linecap="round"><path d="M0-22v-34M0 22v34M-22 0h-34M22 0h34M-16-16l-24-24M16 16l24 24M16-16l24-24M-16 16l-24 24M-8-20l-10-26M8-20l10-26M-8 20l-10 26M8 20l10 26M-20-8l-26-10M-20 8l-26 10M20-8l26-10M20 8l26 10"/></g>
+    <g id="palm" fill="none" stroke="#070605" stroke-linecap="round"><path d="M0 0C6-70 2-140-14-200" stroke-width="12"/><path d="M-14-200c-40-34-96-30-122 6M-14-200c-18-56-66-74-104-60M-14-200c8-58 52-84 96-72M-14-200c44-30 96-8 112 34M-14-200c34 12 50 46 50 80M-14-200c-34 12-56 46-60 80" stroke-width="9"/></g>
   </defs>
   <rect width="900" height="1600" fill="url(#bg)"/>
-  <!-- 朱漆紅的太陽 -->
-  <circle cx="450" cy="560" r="250" fill="url(#sun)"/>
+  <!-- 朱漆紅的圓月 -->
+  <circle cx="450" cy="590" r="262" fill="url(#sun)"/>
+  <circle cx="450" cy="590" r="282" fill="none" stroke="#efe6d6" stroke-opacity=".12" stroke-width="1.5"/>
   <!-- 漆畫雲紋 -->
-  <g fill="none" stroke="#efe6d6" stroke-opacity=".34" stroke-width="2" stroke-linecap="round">
-    <path d="M80 470h250c24 0 24-26 0-26h-70"/><path d="M560 640h270c24 0 24 26 0 26h-90"/><path d="M120 700h160"/><path d="M620 420h200"/>
+  <g fill="none" stroke="#efe6d6" stroke-opacity=".34" stroke-width="2.2" stroke-linecap="round">
+    <path d="M70 500h230c26 0 26-28 0-28h-64"/><path d="M586 676h250c26 0 26 28 0 28h-84"/><path d="M110 742h170M640 440h190M60 620h90"/>
   </g>
   <!-- 跨年煙火 -->
-  <g stroke="#efe6d6" stroke-opacity=".55" stroke-width="2" stroke-linecap="round">
-    <g transform="translate(170 250)"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
-    <g transform="translate(730 190) scale(.7)" stroke="#e86a48" stroke-opacity=".9"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
-    <g transform="translate(640 330) scale(.45)"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
-  </g>
+  <use href="#fw" x="160" y="250" stroke="#efe6d6" stroke-opacity=".6" stroke-width="2.4"/>
+  <g transform="translate(742 196) scale(.72)"><use href="#fw" stroke="#ee6e4a" stroke-width="3"/></g>
+  <g transform="translate(620 330) scale(.42)"><use href="#fw" stroke="#efe6d6" stroke-opacity=".5" stroke-width="3.4"/></g>
+  <g transform="translate(300 140) scale(.36)"><use href="#fw" stroke="#ee6e4a" stroke-opacity=".8" stroke-width="3.6"/></g>
   <!-- 西貢天際線剪影 -->
-  <g fill="#100c0a" stroke="#efe6d6" stroke-opacity=".22" stroke-width="1.5" stroke-linejoin="round">
-    <path d="M0 900V800h60v-40h50v40h40v-70h70v70h30V900z"/>
+  <g fill="#0f0b09" stroke="#efe6d6" stroke-opacity=".2" stroke-width="1.6" stroke-linejoin="round">
+    <path d="M0 920V820h46v-34h40v34h34V780h54v140z"/>
     <!-- 雙塔教堂 -->
-    <path d="M250 900V760h14v-70l14-60 14 60v70h46v-70l14-60 14 60v70h14V900z"/>
-    <!-- 高塔 -->
-    <path d="M420 900V560l18-150 10-60 10 60 18 150V900z"/>
-    <path d="M476 520h56v14h-56z"/>
-    <!-- 階梯大樓 -->
-    <path d="M560 900V620h22v-80h20v-70h16v70h20v80h22V900z"/>
-    <!-- 市政廳 -->
-    <path d="M690 900V790h40v-30h24v-56l16-30 16 30v56h24v30h40V900z"/>
-    <path d="M850 900V770h50V900z"/>
+    <path d="M176 920V790h8v-56l14-70 14 70v56h44v-56l14-70 14 70v56h8v130z"/>
+    <path d="M214 790l20-24 20 24" fill="none"/><circle cx="234" cy="826" r="12" fill="none"/>
+    <path d="M300 920V836h36v-40h30v40h26v84z"/>
+    <!-- 蓮花造型高塔與停機坪 -->
+    <path d="M398 920l10-330c4-70 22-112 38-126 16 14 34 56 38 126l10 330z"/>
+    <path d="M478 616h58c8 0 8 12 0 12h-56z"/>
+    <!-- 階梯式最高樓 -->
+    <path d="M556 920V640h14v-90h12v-84h10v-70h8v-62h8v62h8v70h10v84h12v90h14v280z"/>
+    <path d="M670 920V812h34v-36h28v36h20v108z"/>
+    <!-- 鐘樓市政廳 -->
+    <path d="M752 920V830h30v-34h20v-52l14-34 14 34v52h20v34h30v90z"/><circle cx="816" cy="792" r="9" fill="none"/>
+    <path d="M880 920V800h20v120z"/>
   </g>
-  <!-- 河面倒影 -->
-  <rect y="900" width="900" height="700" fill="#0b0908"/>
-  <g stroke="#d2452b" stroke-linecap="round" stroke-width="3">
-    <path d="M300 930h300" stroke-opacity=".75"/><path d="M340 962h220" stroke-opacity=".55"/><path d="M380 996h140" stroke-opacity=".38"/><path d="M410 1032h80" stroke-opacity=".24"/><path d="M430 1070h40" stroke-opacity=".14"/>
+  <!-- 窗光 -->
+  <g fill="#ee6e4a" fill-opacity=".55"><rect x="424" y="700" width="6" height="10"/><rect x="456" y="760" width="6" height="10"/><rect x="590" y="700" width="6" height="10"/><rect x="606" y="790" width="6" height="10"/><rect x="330" y="860" width="6" height="10"/><rect x="700" y="850" width="6" height="10"/><rect x="60" y="850" width="6" height="10"/><rect x="130" y="820" width="6" height="10"/></g>
+  <!-- 河面 -->
+  <rect y="920" width="900" height="680" fill="#0b0908"/>
+  <g stroke="#d4472c" stroke-linecap="round" stroke-width="3.4">
+    <path d="M286 936h328" stroke-opacity=".8"/><path d="M330 968h240" stroke-opacity=".58"/><path d="M374 1002h152" stroke-opacity=".4"/><path d="M406 1038h88" stroke-opacity=".26"/><path d="M428 1076h44" stroke-opacity=".15"/>
   </g>
-  <g stroke="#efe6d6" stroke-opacity=".12" stroke-width="1.5" stroke-linecap="round"><path d="M60 950h150M690 975h160M110 1010h90M720 1040h100"/></g>
-  <rect y="1000" width="900" height="600" fill="url(#fade)"/>
+  <g stroke="#efe6d6" stroke-opacity=".13" stroke-width="1.6" stroke-linecap="round"><path d="M50 952h150M690 978h170M110 1014h90M716 1044h110M40 1080h60"/></g>
+  <!-- 舢舨小船 -->
+  <g transform="translate(176 990)"><path d="M0 0c40 16 130 16 176 0-10 22-36 30-88 30S10 22 0 0z" fill="#070605" stroke="#efe6d6" stroke-opacity=".28" stroke-width="1.5"/><path d="M52 2c6-26 62-26 70 0" fill="none" stroke="#efe6d6" stroke-opacity=".28" stroke-width="1.5"/><path d="M20 44h140" stroke="#efe6d6" stroke-opacity=".14" stroke-width="1.5"/></g>
+  <!-- 前景椰子樹 -->
+  <use href="#palm" x="70" y="1010"/>
+  <g transform="translate(846 990) scale(-.82 .82)"><use href="#palm"/></g>
+  <rect y="1010" width="900" height="590" fill="url(#fade)"/>
 </svg>

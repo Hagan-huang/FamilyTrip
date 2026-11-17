@@ -12,9 +12,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Family trip">
-<link rel="manifest" href="manifest.webmanifest?v=1.0.1">
-<link rel="icon" href="images/icon-192.png?v=1.0.1">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1.0.1">
+<link rel="manifest" href="manifest.webmanifest?v=1.1.0">
+<link rel="icon" href="images/icon-192.png?v=1.1.0">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1.1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" media="print" onload="this.media='all'">
@@ -70,8 +70,9 @@ body.off .ph{padding-top:calc(env(safe-area-inset-top) + 48px)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 /* ============ 封面 ============ */
 #cover{position:fixed;inset:0;z-index:50;background:#0b0908;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
-  transition:opacity .6s,visibility .6s}
-#cover.out{opacity:0;visibility:hidden}
+  transition:opacity .6s,visibility .6s,transform .7s}
+#cover.out{opacity:0;visibility:hidden;transform:scale(1.06)}
+#cvTitle span{display:inline-block;animation:charin .8s cubic-bezier(.2,.8,.2,1) both}
 #cover .art{position:absolute;inset:-4%;background:center/cover no-repeat;animation:push 26s ease-out both}
 #cover canvas{position:absolute;inset:0;width:100%;height:100%}
 #cover .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,9,8,0) 30%,rgba(11,9,8,.72) 62%,#0b0908 92%)}
@@ -86,7 +87,7 @@ body.off .ph{padding-top:calc(env(safe-area-inset-top) + 48px)}
 /* ============ 登入 ============ */
 #login{position:fixed;inset:0;z-index:40;background:var(--bg);display:none;overflow:auto}
 #login.on{display:block}
-#login .box{max-width:420px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 54px) 28px 40px}
+#login .box{position:relative;max-width:420px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 54px) 28px 40px}
 #login h2{font:700 28px/1.3 var(--head);margin:6px 0 4px}
 .field{margin-top:18px}
 .field label{display:block;font-size:12px;color:var(--mute);letter-spacing:.1em;margin-bottom:6px}
@@ -151,7 +152,7 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 .foot{text-align:center;font-size:10.5px;letter-spacing:.18em;color:var(--faint);padding:18px 0 8px}
 .foot button{color:var(--mute);text-decoration:underline;letter-spacing:.04em;font-size:11px;margin-top:8px}
 /* ============ 航班（車票） ============ */
-.ticket{background:var(--ticket);color:var(--ticket-ink);border-radius:14px;margin:14px 16px;position:relative;
+.ticket{background:var(--ticket);color:var(--ticket-ink);border-radius:14px;margin:14px 16px;position:relative;animation:rise .55s ease-out both;
   box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .tk-top{padding:16px 18px 14px}
 .tk-dir{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.18em;color:var(--ticket-mute)}
@@ -178,7 +179,6 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 .axis button.on{background:var(--acc);color:var(--acc-ink);box-shadow:var(--glow)}.axis button.on b{color:var(--acc-ink)}
 .axis button.today:not(.on){box-shadow:inset 0 0 0 1px var(--acc)}
 #mascot{position:absolute;top:0;left:0;width:62px;height:44px;margin-left:-31px;transition:transform .55s cubic-bezier(.5,0,.2,1.2);pointer-events:none}
-#mascot .eye{transform-origin:46.5px 18px;animation:blink 4.2s infinite}
 #mascot.go .body{animation:putt .5s}
 .groups{display:flex;gap:6px;margin:10px 16px 0}
 .groups button{padding:5px 14px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:var(--mute)}
@@ -190,7 +190,10 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 .day{position:relative}
 .live{display:inline-block;font-size:10px;letter-spacing:.16em;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:1px 8px;margin-bottom:8px}
 .tl{position:relative;margin:6px 16px 0;padding-left:64px}
-.tl:before{content:"";position:absolute;left:52px;top:14px;bottom:10px;width:1px;background:var(--line);transform-origin:top;animation:grow .9s ease-out both}
+.tl:before{content:"";position:absolute;left:52px;top:14px;bottom:10px;width:1px;background:var(--line);transform-origin:top}
+.tl.in:before{animation:grow .9s ease-out both}
+.tl.in .ti{animation:tin .45s ease-out both}
+.ti.now .ti-dot:after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--acc);animation:ring 1.8s ease-out infinite}
 .ti{position:relative;padding:9px 0 13px;transition:opacity .3s}
 .ti-time{position:absolute;left:-64px;top:10px;width:42px;text-align:right;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
 .ti-dot{position:absolute;left:-15.5px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--faint)}
@@ -227,7 +230,7 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .lanterns:before{content:"";position:absolute;left:8%;right:8%;top:2px;border-top:1px solid var(--faint)}
 .lanterns span{position:relative;width:38px;height:46px;border-radius:50%/46%;border:1.5px solid var(--acc);background:var(--acc-soft);
   display:grid;place-items:center;font:700 17px var(--head);color:var(--ink);box-shadow:var(--glow);
-  transform-origin:50% -8px;animation:sway 4.5s ease-in-out infinite}
+  transform-origin:50% -8px;animation:sway 4.5s ease-in-out infinite,lamp 3.2s ease-in-out infinite}
 .lanterns span:nth-child(2n){animation-delay:-1.6s}.lanterns span:nth-child(3n){animation-delay:-2.9s}
 .lanterns span:before{content:"";position:absolute;top:-9px;left:50%;width:1px;height:8px;background:var(--faint)}
 .lanterns span:after{content:"";position:absolute;bottom:-10px;left:50%;width:1.5px;height:9px;background:var(--acc)}
@@ -240,7 +243,7 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .list .tx{flex:1;min-width:0}.list li.done .tx{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--faint)}
 .list .del{color:var(--faint);padding:2px 4px;opacity:.7}
 .stamp{position:absolute;right:34px;top:50%;margin-top:-17px;padding:3px 9px;border:2px solid var(--acc);border-radius:6px;color:var(--acc);
-  font:700 12px var(--head);letter-spacing:.12em;transform:rotate(-9deg);opacity:0;pointer-events:none;background:var(--bg)}
+  font:700 12px var(--head);letter-spacing:.12em;transform:rotate(-9deg);transform-origin:100% 50%;opacity:0;pointer-events:none;background:var(--bg);white-space:nowrap}
 .list li.done .stamp{opacity:.85}
 .list li.stamping .stamp{animation:stamp .45s cubic-bezier(.2,1.4,.4,1) both}
 .adder{display:flex;gap:8px;margin:12px 16px 0}
@@ -309,7 +312,93 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .driver{padding:20px;text-align:center}
 .driver .ad{font:700 30px/1.45 -apple-system,"Helvetica Neue",Arial,sans-serif;background:#fff;color:#111;border-radius:16px;padding:28px 18px;word-break:break-word}
 .note{font-size:12px;color:var(--mute);margin:10px 0 0;line-height:1.6}
+/* ============ 插圖 ============ */
+.art{stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible;pointer-events:none}
+.art .a{stroke:var(--acc)}.art .f{fill:var(--acc);stroke:none}.art .d{opacity:.42}
+html[data-theme=neon] .art .a{filter:drop-shadow(0 0 3px var(--acc))}
+.art.draw [pathLength]{stroke-dasharray:1;animation:artdraw 1.5s ease-out both}
+.art.draw [pathLength]:nth-child(2n){animation-delay:.12s}.art.draw [pathLength]:nth-child(3n){animation-delay:.24s}.art.draw [pathLength]:nth-child(5n){animation-delay:.36s}
+.art .steam path{animation:steam 2.8s ease-in-out infinite}.art .steam path:nth-child(2){animation-delay:-1.3s}
+.art .drip{animation:drip 1.5s ease-in infinite}
+.art .burst{transform-box:fill-box;transform-origin:center;animation:burst 2.6s ease-out infinite}.art .b2{animation-delay:-.9s}.art .b3{animation-delay:-1.7s}
+.art .tw{transform-box:fill-box;transform-origin:center;animation:twinkle 2.2s ease-in-out infinite}.art .t2{animation-delay:-1.1s}
+.art .cl1{animation:drift 7s ease-in-out infinite alternate}.art .cl2{animation:drift 9s ease-in-out infinite alternate-reverse}
+.ph{position:relative}
+.ph-art{position:absolute;right:14px;bottom:0;width:126px;height:84px;opacity:.92}
+.ph-code,.ph h1{position:relative}
+.day{display:grid;grid-template-columns:minmax(0,1fr) 104px;column-gap:6px;align-content:center}
+.day>*{grid-column:1}
+.day-art{grid-column:2;grid-row:1/span 3;align-self:end;width:104px;height:69px;margin-top:20px;opacity:.85}
+.day .live{justify-self:start}
+.art.sm{width:54px;height:36px}
+.art.md{display:block;width:120px;height:80px;margin:0 auto 10px;opacity:.9}
+.art.corner{position:absolute;right:12px;top:4px;width:63px;height:42px;opacity:.75}
+.hotel{position:relative}.hotel h4,.hotel p{position:relative}
+.loading{display:flex;align-items:center;gap:10px;color:var(--mute);font-size:13px}
+.sh-art{display:flex;justify-content:center;margin:2px 0 10px}.sh-art .art{width:132px;height:88px}
+#lgArt .art{position:absolute;right:24px;top:calc(env(safe-area-inset-top) + 40px);width:120px;height:80px;opacity:.9}
+.sct{overflow:visible}
+.sct .eye{transform-origin:46.5px 18px;animation:blink 4.2s infinite}
+.sct .body{animation:bob 2.4s ease-in-out infinite}
+.sct .puff{fill:var(--mute);opacity:0;transform-box:fill-box;transform-origin:center}
+#mascot.go .puff{animation:puff .7s ease-out}#mascot.go .p2{animation-delay:.1s}#mascot.go .p3{animation-delay:.2s}
+.sct.big{width:120px;height:86px}
+/* 主頁的小動畫 */
+.trk{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:10.5px;letter-spacing:.14em;color:var(--mute)}
+.trk b{font-weight:400}
+.trk-l{flex:1;height:20px;position:relative;background:repeating-linear-gradient(90deg,var(--faint) 0 3px,transparent 3px 8px) center/100% 1px no-repeat}
+.trk-l i{position:absolute;left:0;top:50%;height:1.5px;margin-top:-.75px;background:var(--acc);box-shadow:var(--glow);transform-origin:left;animation:draw 1.2s ease-out both}
+.trk-l span{position:absolute;top:50%;margin:-11px 0 0 -8px;color:var(--acc);animation:fly 2.6s ease-in-out infinite}
+.trk-l span .ic{display:block}
+.dots{display:flex;align-items:center;margin-top:14px}
+.dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--faint);flex:none}
+.dots i.p{background:var(--acc);border-color:var(--acc)}
+.dots i.n{border-color:var(--acc);background:var(--acc);animation:pulse 1.8s ease-out infinite}
+.dots u{flex:1;height:1px;background:var(--line)}
+.wxa.wx-sun{animation:spin 24s linear infinite}
+.wxa.wx-pcloud,.wxa.wx-cloud,.wxa.wx-fog{animation:drift 5s ease-in-out infinite alternate}
+.wxa.wx-rain,.wxa.wx-storm,.wxa.wx-snow{animation:fly 1.8s ease-in-out infinite}
+.scene{position:relative;height:60px;margin:26px 0 -4px;overflow:hidden}
+.scene .sky{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--faint);stroke-width:1.2;stroke-linejoin:round}
+.scene .sky .moon{stroke:var(--acc);fill:var(--acc-soft)}
+.scene .sky .gr{stroke:var(--line)}
+.scene .rider{position:absolute;left:0;bottom:1px;width:40px;height:29px;animation:ride 15s linear infinite}
+.bar i{transform-origin:left;animation:draw .8s ease-out both}
+.page.on{animation:pagein .38s ease-out both}
+#nav button.on .ic,#nav button.bump .ic{animation:navpop .42s cubic-bezier(.3,1.6,.5,1)}
+.tk-mid .ic{animation:glide 3.4s ease-in-out infinite alternate}
+.tk-stamp{position:absolute;right:18px;bottom:10px;z-index:2;padding:4px 10px;border:2px solid var(--acc);border-radius:6px;color:var(--acc);
+  font:700 12px var(--head);letter-spacing:.14em;transform:rotate(-10deg);transform-origin:100% 50%;opacity:.8;pointer-events:none;white-space:nowrap}
+.tk-stamp.hit{animation:stamp2 .5s cubic-bezier(.2,1.4,.4,1) both}
+.coin{position:fixed;z-index:86;width:32px;height:32px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;
+  font:700 15px var(--head);pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.35),inset 0 0 0 2px rgba(255,255,255,.25)}
+#swoosh em{position:absolute;left:0;top:46%;width:70px;height:50px;margin-top:-8px;z-index:1;animation:rush .5s cubic-bezier(.45,.05,.55,.95) both}
+#swoosh em .sct{width:70px;height:50px;display:block}
+html:not([data-theme=indo]) #swoosh em{--acc:var(--bg)}
+#swoosh.rev em{animation-name:rushR}
 /* ============ 動畫 ============ */
+@keyframes artdraw{from{stroke-dashoffset:1}}
+@keyframes steam{0%{transform:translateY(4px);opacity:0}40%{opacity:1}100%{transform:translateY(-6px);opacity:0}}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+@keyframes burst{0%{transform:scale(.3);opacity:0}25%{opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(1.12);opacity:0}}
+@keyframes twinkle{0%,100%{transform:scale(.5);opacity:.3}50%{transform:scale(1);opacity:1}}
+@keyframes drift{from{transform:translateX(-3px)}to{transform:translateX(4px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes puff{0%{opacity:.7;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(-8px,-5px) scale(1.4)}}
+@keyframes fly{0%,100%{transform:translateY(-1.5px)}50%{transform:translateY(2px)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--acc-soft)}100%{box-shadow:0 0 0 10px transparent}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ride{0%{transform:translateX(-50px)}62%,100%{transform:translateX(560px)}}
+@keyframes pagein{from{opacity:0;transform:translateY(8px)}}
+@keyframes navpop{0%{transform:scale(1)}40%{transform:scale(1.25) translateY(-2px)}100%{transform:scale(1)}}
+@keyframes glide{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
+@keyframes stamp2{0%{opacity:0;transform:rotate(-10deg) scale(2.4)}60%{opacity:1;transform:rotate(-10deg) scale(.9)}100%{opacity:.8;transform:rotate(-10deg) scale(1)}}
+@keyframes tin{from{opacity:0;transform:translateX(10px)}}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+@keyframes lamp{0%,100%{background-color:var(--acc-soft)}50%{background-color:transparent}}
+@keyframes charin{from{opacity:0;transform:translateY(14px)}}
+@keyframes rush{0%{transform:translateX(-90px)}100%{transform:translateX(110vw)}}
+@keyframes rushR{0%{transform:translateX(110vw) scaleX(-1)}100%{transform:translateX(-90px) scaleX(-1)}}
 @keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -393,6 +482,7 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 <!-- 登入 -->
 <section id="login">
   <div class="box">
+    <div id="lgArt"></div>
     <div class="ph-code">LOGIN <i>/</i> <span>Đăng nhập</span></div>
     <h2>登入</h2>
     <div class="ph-line" style="animation:draw .7s both"></div>
@@ -426,10 +516,10 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 
 <section id="sheet"><div class="sh-hd"><h2 id="shTitle"></h2><button data-act="closeSheet" aria-label="關閉"><svg class="ic l"><use href="#i-x"/></svg></button></div><div class="sh-bd" id="shBody"></div></section>
 <section id="zoom" data-act="closeZoom"><div class="lo" id="zmLo"></div><div class="zh" id="zmZh"></div><div class="tip">點一下關閉・螢幕會保持恆亮</div></section>
-<div id="swoosh"><i></i><b></b></div>
+<div id="swoosh"><i></i><em></em><b></b></div>
 
-<script>window.APP_VER='1.0.1';window.APP_DATE='2026-11-17';</script>
-<script src="data.js?v=1.0.1"></script>
-<script src="app.js?v=1.0.1"></script>
+<script>window.APP_VER='1.1.0';window.APP_DATE='2026-11-17';</script>
+<script src="data.js?v=1.1.0"></script>
+<script src="app.js?v=1.1.0"></script>
 </body>
 </html>

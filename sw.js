@@ -1,17 +1,17 @@
 /* 越南跨年之旅 — Service Worker（離線快取）
  * 每次改版：VER 與 CORE 裡的 ?v= 要跟 index.html 的 APP_VER 一起改。 */
-const VER = '1.0.1';
+const VER = '1.1.0';
 const CACHE = 'familytrip-' + VER;
 const FONTS = 'familytrip-fonts';
 const CORE = [
   './',
   'index.html',
-  'data.js?v=1.0.1',
-  'app.js?v=1.0.1',
-  'manifest.webmanifest?v=1.0.1',
-  'images/icon-192.png?v=1.0.1',
-  'images/apple-touch-icon.png?v=1.0.1',
-  'images/cover.svg?v=1.0.1'
+  'data.js?v=1.1.0',
+  'app.js?v=1.1.0',
+  'manifest.webmanifest?v=1.1.0',
+  'images/icon-192.png?v=1.1.0',
+  'images/apple-touch-icon.png?v=1.1.0',
+  'images/cover.svg?v=1.1.0'
 ];
 
 self.addEventListener('install', e => {

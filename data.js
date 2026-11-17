@@ -130,6 +130,11 @@ const ITIN = [
   { date: '1/3', time: '18:00', type: '交通', text: '星宇 JX714 起飛', trans: '飛機', place: '', note: '22:20 抵達桃園 T2（台灣時間）' }
 ];
 
+/* 每天行程卡上的插圖（可不設，網站會依標題自動挑）。
+ * 可用：fireworks 煙火、cityhall 市政廳、palm 椰子樹、market 市場、church 教堂、plane 飛機、lotus 蓮花、pho 河粉、phin 滴漏咖啡、suitcase 行李箱、coins 硬幣
+ * 例如：const DAY_ART = { '1/2': 'market' }; */
+const DAY_ART = {};
+
 /* 整天覆寫：例如 { id: 'p1', date: '1/2', items: [ ...跟 ITIN 同格式... ] }
  * 每個 id 只會套用一次，套用前會自動備份到「行程備份」分頁。 */
 const ITIN_PATCHES = [];
