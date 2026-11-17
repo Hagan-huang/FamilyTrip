@@ -5,7 +5,7 @@
  * ========================================================= */
 
 /* Apps Script 網頁應用程式網址（部署後貼在引號裡；空白＝單機模式） */
-const API_URL = '';
+const API_URL = 'https://script.google.com/macros/s/AKfycbw9mn8fA9gQvtfnTvXmO1bA1Yl0JhXbpyFCkKEYlXz4eAJy-aLfdd5-8punqNqj6y-sYw/exec';
 
 const TRIP = {
   title: '越南跨年之旅',

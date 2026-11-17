@@ -102,7 +102,7 @@
       const j = await r.json();
       if (j && j.err === 'AUTH' && action !== 'login') authFail();
       return j;
-    } catch (e) { return { ok: false, err: 'NET', msg: '連不上伺服器，請確認網路' }; }
+    } catch (e) { return { ok: false, err: 'NET', msg: navigator.onLine ? '連不上試算表。若網路正常，請主辦人確認 Apps Script 部署的「誰可以存取」是「所有人」' : '目前沒有網路，請連上網路再登入' }; }
     finally { clearTimeout(t); }
   }
   function authFail() {
