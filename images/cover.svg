@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="34%" r="80%"><stop offset="0" stop-color="#2a1611"/><stop offset=".45" stop-color="#150f0c"/><stop offset="1" stop-color="#0b0908"/></radialGradient>
+    <radialGradient id="sun" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#ee6a48"/><stop offset=".7" stop-color="#d2452b"/><stop offset="1" stop-color="#a8301c"/></radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0908" stop-opacity="0"/><stop offset="1" stop-color="#0b0908"/></linearGradient>
+  </defs>
+  <rect width="900" height="1600" fill="url(#bg)"/>
+  <!-- 朱漆紅的太陽 -->
+  <circle cx="450" cy="560" r="250" fill="url(#sun)"/>
+  <!-- 漆畫雲紋 -->
+  <g fill="none" stroke="#efe6d6" stroke-opacity=".34" stroke-width="2" stroke-linecap="round">
+    <path d="M80 470h250c24 0 24-26 0-26h-70"/><path d="M560 640h270c24 0 24 26 0 26h-90"/><path d="M120 700h160"/><path d="M620 420h200"/>
+  </g>
+  <!-- 跨年煙火 -->
+  <g stroke="#efe6d6" stroke-opacity=".55" stroke-width="2" stroke-linecap="round">
+    <g transform="translate(170 250)"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
+    <g transform="translate(730 190) scale(.7)" stroke="#e86a48" stroke-opacity=".9"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
+    <g transform="translate(640 330) scale(.45)"><path d="M0-52v26M0 26v26M-52 0h26M26 0h26M-37-37l18 18M19 19l18 18M37-37L19-19M-19 19l-18 18"/></g>
+  </g>
+  <!-- 西貢天際線剪影 -->
+  <g fill="#100c0a" stroke="#efe6d6" stroke-opacity=".22" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M0 900V800h60v-40h50v40h40v-70h70v70h30V900z"/>
+    <!-- 雙塔教堂 -->
+    <path d="M250 900V760h14v-70l14-60 14 60v70h46v-70l14-60 14 60v70h14V900z"/>
+    <!-- 高塔 -->
+    <path d="M420 900V560l18-150 10-60 10 60 18 150V900z"/>
+    <path d="M476 520h56v14h-56z"/>
+    <!-- 階梯大樓 -->
+    <path d="M560 900V620h22v-80h20v-70h16v70h20v80h22V900z"/>
+    <!-- 市政廳 -->
+    <path d="M690 900V790h40v-30h24v-56l16-30 16 30v56h24v30h40V900z"/>
+    <path d="M850 900V770h50V900z"/>
+  </g>
+  <!-- 河面倒影 -->
+  <rect y="900" width="900" height="700" fill="#0b0908"/>
+  <g stroke="#d2452b" stroke-linecap="round" stroke-width="3">
+    <path d="M300 930h300" stroke-opacity=".75"/><path d="M340 962h220" stroke-opacity=".55"/><path d="M380 996h140" stroke-opacity=".38"/><path d="M410 1032h80" stroke-opacity=".24"/><path d="M430 1070h40" stroke-opacity=".14"/>
+  </g>
+  <g stroke="#efe6d6" stroke-opacity=".12" stroke-width="1.5" stroke-linecap="round"><path d="M60 950h150M690 975h160M110 1010h90M720 1040h100"/></g>
+  <rect y="1000" width="900" height="600" fill="url(#fade)"/>
+</svg>
