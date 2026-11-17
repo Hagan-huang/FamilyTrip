@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="lacquer">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>越南跨年之旅</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#0e0c0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Family trip">
+<link rel="manifest" href="manifest.webmanifest?v=1.0.0">
+<link rel="icon" href="images/icon-192.png?v=1.0.0">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1.0.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" media="print" onload="this.media='all'">
+<style>
+/* ============ 風格變數 ============ */
+:root{
+  --bg:#0e0c0b;--bg2:#161311;--card:rgba(239,230,214,.055);--card2:rgba(239,230,214,.1);
+  --ink:#efe6d6;--mute:rgba(239,230,214,.6);--faint:rgba(239,230,214,.3);--line:rgba(239,230,214,.14);
+  --acc:#db5236;--acc-soft:rgba(219,82,54,.18);--acc-ink:#fff6ee;--warn:#ff6b5a;
+  --ticket:#efe3c8;--ticket-ink:#2a221a;--ticket-mute:rgba(42,34,26,.58);
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --head:var(--serif);--r:16px;--glow:none;--theme:#0e0c0b;
+}
+html[data-theme=indo]{
+  --bg:#f2e7c9;--bg2:#eadcb6;--card:#fbf5e2;--card2:#f1e5c2;
+  --ink:#27362d;--mute:#667060;--faint:#a5a587;--line:rgba(39,54,45,.2);
+  --acc:#2c6b57;--acc-soft:rgba(44,107,87,.16);--acc-ink:#fdf8e8;--warn:#b8442c;
+  --ticket:#fffaf0;--ticket-ink:#27362d;--ticket-mute:rgba(39,54,45,.6);
+  --head:"Playfair Display","Noto Serif TC","Songti TC",serif;--r:8px;--theme:#f2e7c9;
+}
+html[data-theme=neon]{
+  --bg:#0a0618;--bg2:#120a2a;--card:rgba(150,120,255,.1);--card2:rgba(150,120,255,.18);
+  --ink:#eeeaff;--mute:#aaa3d6;--faint:#655c98;--line:rgba(160,140,255,.24);
+  --acc:#ff3fa8;--acc-soft:rgba(255,63,168,.2);--acc-ink:#fff;--warn:#ffb02e;
+  --ticket:#f3ecff;--ticket-ink:#1a1036;--ticket-mute:rgba(26,16,54,.6);
+  --head:"Chakra Petch",var(--sans);--r:14px;--glow:0 0 14px rgba(255,63,168,.55);--theme:#0a0618;
+}
+/* ============ 基本 ============ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{margin:0 auto;max-width:520px;min-height:100vh;background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));overflow-x:hidden;transition:background .4s,color .4s}
+html[data-theme=indo] body{background:var(--bg) repeating-linear-gradient(45deg,transparent 0 18px,rgba(39,54,45,.03) 18px 19px)}
+html[data-theme=neon] body{background:radial-gradient(120% 60% at 50% 0,#1c0f45 0,var(--bg) 60%)}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;transition:transform .12s}
+button:active,.tap:active{transform:scale(.95)}
+a{color:inherit}
+.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-4px}
+.ic.s{width:16px;height:16px;vertical-align:-3px}.ic.l{width:26px;height:26px}
+.num{font-family:var(--head);font-variant-numeric:tabular-nums}
+.mute{color:var(--mute)}.acc{color:var(--acc)}.nowrap{white-space:nowrap}
+.hide{display:none!important}
+/* ============ 離線提示／Toast ============ */
+#offbar{position:fixed;top:0;left:0;right:0;z-index:60;padding:calc(env(safe-area-inset-top) + 6px) 12px 6px;text-align:center;
+  font-size:12px;background:var(--acc);color:var(--acc-ink);transform:translateY(-100%);visibility:hidden;transition:transform .3s}
+#offbar.on{transform:none;visibility:visible}
+body.off .ph{padding-top:calc(env(safe-area-inset-top) + 48px)}
+#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:90;
+  background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;max-width:86vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+/* ============ 封面 ============ */
+#cover{position:fixed;inset:0;z-index:50;background:#0b0908;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+  transition:opacity .6s,visibility .6s}
+#cover.out{opacity:0;visibility:hidden}
+#cover .art{position:absolute;inset:-4%;background:center/cover no-repeat;animation:push 26s ease-out both}
+#cover canvas{position:absolute;inset:0;width:100%;height:100%}
+#cover .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,9,8,0) 30%,rgba(11,9,8,.72) 62%,#0b0908 92%)}
+#cover .inner{position:relative;padding:0 28px calc(46px + env(safe-area-inset-bottom));color:#efe6d6;max-width:520px;margin:0 auto;width:100%}
+#cover .kicker{font-size:11px;letter-spacing:.32em;color:rgba(239,230,214,.62)}
+#cover h1{font:700 40px/1.2 var(--serif);margin:10px 0 6px;letter-spacing:.06em}
+#cover .sub{font-size:13px;color:rgba(239,230,214,.7);letter-spacing:.08em}
+#cover .rule{width:56px;height:2px;background:#db5236;margin:18px 0 26px;transform-origin:left;animation:draw .9s .3s both}
+#enter{display:block;width:100%;padding:15px;border-radius:99px;border:1px solid rgba(219,82,54,.8);color:#efe6d6;font-size:15px;
+  letter-spacing:.14em;animation:breath 2.8s ease-in-out infinite}
+#enter small{display:block;font-size:11px;letter-spacing:.2em;color:rgba(239,230,214,.6);margin-top:2px}
+/* ============ 登入 ============ */
+#login{position:fixed;inset:0;z-index:40;background:var(--bg);display:none;overflow:auto}
+#login.on{display:block}
+#login .box{max-width:420px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 54px) 28px 40px}
+#login h2{font:700 28px/1.3 var(--head);margin:6px 0 4px}
+.field{margin-top:18px}
+.field label{display:block;font-size:12px;color:var(--mute);letter-spacing:.1em;margin-bottom:6px}
+.inp{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);outline:0;font-size:16px}
+.inp:focus{border-color:var(--acc)}
+.btn{display:block;width:100%;padding:14px;border-radius:12px;background:var(--acc);color:var(--acc-ink);font-weight:600;letter-spacing:.1em;
+  text-align:center;box-shadow:var(--glow)}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink);box-shadow:none;font-weight:400}
+.btn.sm{display:inline-block;width:auto;padding:7px 14px;font-size:13px;border-radius:99px;letter-spacing:.04em}
+.btn[disabled]{opacity:.5}
+.err{color:var(--warn);font-size:13px;margin-top:12px;min-height:20px}
+/* ============ 分頁框架 ============ */
+.page{display:none}.page.on{display:block}
+.ph{padding:calc(env(safe-area-inset-top) + 26px) 20px 6px;background:center/cover no-repeat}
+.ph-code{font-size:11px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase}
+.ph-code i{font-style:normal;opacity:.5;margin:0 6px}
+.ph-code span{letter-spacing:.06em;text-transform:none}
+.ph h1{font:700 32px/1.25 var(--head);margin:4px 0 10px;letter-spacing:.04em;text-shadow:var(--glow)}
+.ph-line{width:56px;height:2px;background:var(--acc);transform-origin:left;box-shadow:var(--glow)}
+.page.on .ph-line{animation:draw .7s ease-out both}
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin:12px 16px}
+html[data-theme=indo] .card{border:1px solid var(--line);box-shadow:3px 3px 0 rgba(39,54,45,.12)}
+html[data-theme=neon] .card{border:1px solid var(--line)}
+.card h3{font:500 12px/1 var(--sans);letter-spacing:.2em;color:var(--mute);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.card h3 .r{margin-left:auto;letter-spacing:.04em;font-size:11px}
+#p-home.on .card{animation:rise .5s ease-out both}
+.row{display:flex;align-items:center;gap:10px}.row .grow{flex:1;min-width:0}
+.big{font:700 34px/1.1 var(--head);font-variant-numeric:tabular-nums}
+.big small{font:400 13px var(--sans);color:var(--mute);margin:0 6px 0 3px}
+/* 底部選單 */
+#nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--bg2);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom)}
+#nav .in{max-width:520px;margin:0 auto;display:flex}
+#nav button{flex:1;padding:9px 0 12px;font-size:10.5px;letter-spacing:.12em;color:var(--mute);position:relative}
+#nav button .ic{display:block;margin:0 auto 3px;width:22px;height:22px}
+#nav button:after{content:"";position:absolute;left:50%;bottom:5px;width:4px;height:4px;border-radius:50%;background:var(--acc);
+  transform:translateX(-50%) scale(0);transition:transform .3s cubic-bezier(.3,1.6,.5,1);box-shadow:var(--glow)}
+#nav button.on{color:var(--ink)}#nav button.on:after{transform:translateX(-50%) scale(1)}
+/* ============ 主頁 ============ */
+.hero .date{font-size:13px;color:var(--mute);letter-spacing:.08em}
+.next-t{font:700 19px/1.4 var(--head);margin:2px 0}
+.sum{list-style:none;margin:10px 0 0;padding:0;font-size:13.5px}
+.sum li{display:flex;gap:10px;padding:4px 0}.sum li b{font-weight:400;color:var(--mute);width:42px;flex:none;font-variant-numeric:tabular-nums}
+.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tools button{padding:10px 0 6px;border-radius:12px;font-size:11px;color:var(--mute);line-height:1.3;white-space:nowrap}
+.tools button .ic{display:block;margin:0 auto 6px;width:24px;height:24px;color:var(--ink)}
+.tools button.sos .ic{color:var(--acc)}
+.wx-now{display:flex;align-items:center;gap:12px}
+.wx-now .ic{width:34px;height:34px}
+.wx-days{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;margin-top:12px;text-align:center;font-size:12px}
+.wx-days .ic{display:block;margin:4px auto}
+.wx-days b{display:block;font-weight:400;color:var(--mute)}
+.fx-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+.fx-row .inp{padding:10px 12px}
+.bar{height:4px;background:var(--card2);border-radius:9px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:9px;transition:width .6s}
+.themes{display:flex;gap:8px}
+.themes button{flex:1;padding:10px 4px;border-radius:12px;border:1px solid var(--line);font-size:12px}
+.themes button.on{border-color:var(--acc);color:var(--acc)}
+.themes .sw{display:flex;justify-content:center;gap:3px;margin-bottom:6px}
+.themes .sw i{width:14px;height:14px;border-radius:50%;display:block;border:1px solid rgba(128,128,128,.4)}
+.foot{text-align:center;font-size:10.5px;letter-spacing:.18em;color:var(--faint);padding:18px 0 8px}
+.foot button{color:var(--mute);text-decoration:underline;letter-spacing:.04em;font-size:11px;margin-top:8px}
+/* ============ 航班（車票） ============ */
+.ticket{background:var(--ticket);color:var(--ticket-ink);border-radius:14px;margin:14px 16px;position:relative;
+  box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.tk-top{padding:16px 18px 14px}
+.tk-dir{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.18em;color:var(--ticket-mute)}
+.tk-route{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.tk-route .code{font:700 34px/1 var(--head);letter-spacing:.04em}
+.tk-route .city{font-size:12px;color:var(--ticket-mute);white-space:nowrap}
+.tk-route .time{font:700 17px var(--head);font-variant-numeric:tabular-nums}
+.tk-mid{flex:1;text-align:center;font-size:11px;color:var(--ticket-mute);padding:0 8px;position:relative}
+.tk-mid:before{content:"";position:absolute;left:10px;right:10px;top:11px;border-top:1px dashed rgba(42,34,26,.35)}
+.tk-mid .ic{position:relative;background:var(--ticket);padding:0 6px;width:34px;color:var(--acc)}
+.tk-mid span{display:block;margin-top:2px;white-space:nowrap}
+.tk-tear{position:relative;border-top:1.5px dashed rgba(42,34,26,.3);margin:0 16px}
+.tk-tear:before,.tk-tear:after{content:"";position:absolute;top:-10px;width:18px;height:18px;border-radius:50%;background:var(--bg)}
+.tk-tear:before{left:-25px}.tk-tear:after{right:-25px}
+.tk-bot{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:8px;padding:12px 18px 14px;font-size:13px}
+.tk-bot b{display:block;font-weight:400;font-size:10px;letter-spacing:.14em;color:var(--ticket-mute)}
+.tk-note{padding:0 18px 14px;font-size:12px;color:var(--ticket-mute)}
+.route-txt{white-space:nowrap}
+/* ============ 行程 ============ */
+.axis-wrap{position:relative;margin:10px 16px 0;padding-top:40px}
+.axis{display:flex;gap:6px}
+.axis button{flex:1;padding:8px 0 9px;border-radius:12px;background:var(--card);font-size:11px;color:var(--mute);line-height:1.35}
+.axis button b{display:block;font:700 17px var(--head);color:var(--ink);font-variant-numeric:tabular-nums}
+.axis button.on{background:var(--acc);color:var(--acc-ink);box-shadow:var(--glow)}.axis button.on b{color:var(--acc-ink)}
+.axis button.today:not(.on){box-shadow:inset 0 0 0 1px var(--acc)}
+#mascot{position:absolute;top:0;left:0;width:62px;height:44px;margin-left:-31px;transition:transform .55s cubic-bezier(.5,0,.2,1.2);pointer-events:none}
+#mascot .eye{transform-origin:46.5px 18px;animation:blink 4.2s infinite}
+#mascot.go .body{animation:putt .5s}
+.groups{display:flex;gap:6px;margin:10px 16px 0}
+.groups button{padding:5px 14px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:var(--mute)}
+.groups button.on{border-color:var(--acc);color:var(--acc)}
+.day h2{font:700 21px/1.35 var(--head);margin:0 0 8px}
+.day .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--mute)}
+.day .meta span{display:inline-flex;align-items:center;gap:5px}
+.day .share{position:absolute;right:12px;top:12px;padding:6px;color:var(--mute)}
+.day{position:relative}
+.live{display:inline-block;font-size:10px;letter-spacing:.16em;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:1px 8px;margin-bottom:8px}
+.tl{position:relative;margin:6px 16px 0;padding-left:64px}
+.tl:before{content:"";position:absolute;left:52px;top:14px;bottom:10px;width:1px;background:var(--line);transform-origin:top;animation:grow .9s ease-out both}
+.ti{position:relative;padding:9px 0 13px;transition:opacity .3s}
+.ti-time{position:absolute;left:-64px;top:10px;width:42px;text-align:right;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.ti-dot{position:absolute;left:-15.5px;top:17px;width:7px;height:7px;border-radius:50%;background:var(--faint)}
+.ti-tt{font-size:15.5px;line-height:1.45}
+.ti-tags{display:flex;flex-wrap:wrap;gap:5px 6px;margin-top:5px;font-size:11px;color:var(--mute)}
+.tag{display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:99px;background:var(--card2);white-space:nowrap}
+.tag.o{background:none;border:1px dashed var(--faint)}
+.tag.a{background:var(--acc-soft);color:var(--acc)}
+.tag.hot{background:var(--warn);color:#fff}
+.tag.meet{background:var(--acc);color:var(--acc-ink)}
+.ti-note{font-size:12.5px;color:var(--mute);margin-top:4px}
+.ti a.map{color:inherit;text-decoration:none}.ti a.map .ic{color:var(--acc)}
+.ti.past{opacity:.4}
+.ti.now .ti-dot{background:var(--acc);box-shadow:0 0 0 5px var(--acc-soft)}
+.ti.now .ti-tt{font-weight:600}
+.ti.next .ti-dot{background:none;box-shadow:inset 0 0 0 1.5px var(--acc)}
+.ti.type-備註 .ti-tt{font-size:14px;color:var(--mute)}
+.swipe-hint{text-align:center;font-size:11px;letter-spacing:.14em;color:var(--faint);padding:20px 0 6px}
+.empty{text-align:center;color:var(--mute);font-size:13px;padding:30px 20px}
+/* 換日期轉場 */
+#swoosh{position:fixed;inset:0;z-index:70;pointer-events:none;overflow:hidden;display:none}
+#swoosh.on{display:block}
+#swoosh i{position:absolute;left:-30%;right:-30%;top:46%;height:74px;background:linear-gradient(90deg,transparent,var(--acc) 30%,var(--acc) 70%,transparent);
+  transform:rotate(-9deg) translateX(-120%);border-radius:50%;filter:blur(.5px);opacity:.92;animation:sweep .5s cubic-bezier(.45,.05,.55,.95) both}
+#swoosh.rev i{animation-name:sweepR}
+#swoosh b{position:absolute;right:12%;top:36%;font:700 44px var(--head);color:var(--ink);font-style:italic;letter-spacing:.02em;
+  text-shadow:0 2px 0 var(--bg),0 0 12px var(--bg);animation:pop .5s both;z-index:2}
+#swoosh.rev b{right:auto;left:12%}
+html[data-theme=indo] #swoosh i{height:100%;top:0;left:0;right:0;border-radius:0;opacity:.9;transform:none;
+  background:repeating-linear-gradient(0deg,var(--acc) 0 26px,transparent 26px 34px);animation-name:shutter}
+html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0 0 80px 20px #2de2ff;background:#fff}
+/* ============ 準備 ============ */
+.lanterns{display:flex;justify-content:center;gap:5px;margin:22px 16px 4px;position:relative;padding-top:10px}
+.lanterns:before{content:"";position:absolute;left:8%;right:8%;top:2px;border-top:1px solid var(--faint)}
+.lanterns span{position:relative;width:38px;height:46px;border-radius:50%/46%;border:1.5px solid var(--acc);background:var(--acc-soft);
+  display:grid;place-items:center;font:700 17px var(--head);color:var(--ink);box-shadow:var(--glow);
+  transform-origin:50% -8px;animation:sway 4.5s ease-in-out infinite}
+.lanterns span:nth-child(2n){animation-delay:-1.6s}.lanterns span:nth-child(3n){animation-delay:-2.9s}
+.lanterns span:before{content:"";position:absolute;top:-9px;left:50%;width:1px;height:8px;background:var(--faint)}
+.lanterns span:after{content:"";position:absolute;bottom:-10px;left:50%;width:1.5px;height:9px;background:var(--acc)}
+.count{text-align:center;font-size:12px;letter-spacing:.14em;color:var(--mute);margin:12px 0 0}
+.list{list-style:none;margin:8px 16px 0;padding:0}
+.list li{display:flex;align-items:flex-start;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line);position:relative}
+.list .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--faint);flex:none;margin-top:1px;display:grid;place-items:center}
+.list .ck .ic{width:13px;height:13px;stroke-width:2.4;opacity:0}
+.list li.done .ck{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}.list li.done .ck .ic{opacity:1}
+.list .tx{flex:1;min-width:0}.list li.done .tx{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--faint)}
+.list .del{color:var(--faint);padding:2px 4px;opacity:.7}
+.stamp{position:absolute;right:34px;top:50%;margin-top:-17px;padding:3px 9px;border:2px solid var(--acc);border-radius:6px;color:var(--acc);
+  font:700 12px var(--head);letter-spacing:.12em;transform:rotate(-9deg);opacity:0;pointer-events:none;background:var(--bg)}
+.list li.done .stamp{opacity:.85}
+.list li.stamping .stamp{animation:stamp .45s cubic-bezier(.2,1.4,.4,1) both}
+.adder{display:flex;gap:8px;margin:12px 16px 0}
+.adder .inp{padding:11px 14px}
+.adder button{width:46px;border-radius:12px;background:var(--card2);flex:none;display:grid;place-items:center}
+.hotel h4{font:700 18px/1.4 var(--head);margin:0 0 6px}
+.hotel p{margin:4px 0;font-size:13.5px;display:flex;gap:8px;align-items:flex-start}
+.hotel p .ic{margin-top:3px}
+/* ============ 記帳 ============ */
+.seg{display:flex;background:var(--card);border-radius:12px;padding:3px;margin:12px 16px 0}
+.seg button{flex:1;padding:8px 10px;border-radius:10px;font-size:13px;color:var(--mute);white-space:nowrap}
+.seg button.on{background:var(--acc);color:var(--acc-ink);box-shadow:var(--glow)}
+.seg.sm{margin:0;display:inline-flex;flex:none}.seg.sm button{padding:5px 12px;font-size:12px}
+.amt{display:flex;align-items:baseline;gap:8px;border-bottom:1px solid var(--line);padding:6px 0}
+.amt .sym{font:700 20px var(--head);color:var(--mute)}
+.amt input{flex:1;min-width:0;background:none;border:0;outline:0;font:700 36px var(--head);font-variant-numeric:tabular-nums;padding:0}
+.amt .eq{font-size:12px;color:var(--mute);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips button{padding:6px 12px;border-radius:99px;background:var(--card2);font-size:12.5px;font-variant-numeric:tabular-nums}
+.chips button.on{background:var(--acc);color:var(--acc-ink)}
+.chips.line button{background:none;border:1px solid var(--line)}
+.chips.line button.on{background:var(--acc);border-color:var(--acc)}
+.lbl{font-size:11px;letter-spacing:.16em;color:var(--mute);margin:16px 0 0}
+.who{display:flex;align-items:center;gap:8px;margin-top:8px}
+.who .inp{padding:8px 10px;width:120px;text-align:right}
+.led{list-style:none;margin:0;padding:0}
+.led li{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.led li:last-child{border:0}
+.led .c{font-size:11px;color:var(--mute);flex:none;width:52px}
+.led .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.led .n small{color:var(--mute);font-size:11px;margin-left:4px}
+.led .v{font-variant-numeric:tabular-nums;white-space:nowrap}
+.led .x{color:var(--faint);padding:0 2px}
+.dayhd{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);letter-spacing:.08em;margin:14px 0 2px}
+.settle li{display:flex;align-items:center;gap:8px;padding:9px 0;font-size:14.5px}
+.settle{list-style:none;margin:0;padding:0}
+.settle .v{margin-left:auto;font:700 16px var(--head);font-variant-numeric:tabular-nums}
+/* ============ 彈出面板 ============ */
+#sheet{position:fixed;inset:0;z-index:80;background:var(--bg);display:none;overflow:auto;-webkit-overflow-scrolling:touch}
+#sheet.on{display:block;animation:rise .3s ease-out}
+#sheet .sh-hd{position:sticky;top:0;background:var(--bg);padding:calc(env(safe-area-inset-top) + 14px) 16px 12px;display:flex;align-items:center;z-index:2}
+#sheet .sh-hd h2{font:700 22px var(--head);margin:0;flex:1}
+#sheet .sh-hd button{padding:8px;margin:-8px}
+#sheet .sh-bd{max-width:520px;margin:0 auto;padding:0 0 40px}
+.ph-list{list-style:none;margin:0 16px;padding:0}
+.ph-list li{padding:13px 4px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.ph-list .zh{flex:1}.ph-list .lo{font-size:12.5px;color:var(--mute);display:block}
+.ph-cat{font-size:11px;letter-spacing:.2em;color:var(--acc);margin:20px 20px 2px}
+#zoom{position:fixed;inset:0;z-index:95;background:#fff;color:#111;display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center}
+#zoom.on{display:flex}
+#zoom .lo{font:700 40px/1.35 -apple-system,"Helvetica Neue",Arial,sans-serif;word-break:break-word}
+#zoom .zh{margin-top:26px;font-size:17px;color:#666}
+#zoom .tip{position:absolute;bottom:calc(24px + env(safe-area-inset-bottom));font-size:12px;color:#999;letter-spacing:.1em}
+.sos li{padding:14px 4px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;list-style:none}
+.sos{margin:0 16px;padding:0}
+.sos .t{flex:1}.sos .t small{display:block;color:var(--mute);font-size:12px;line-height:1.5}
+.sos a.call{flex:none;text-decoration:none;padding:8px 12px;border-radius:99px;background:var(--acc);color:var(--acc-ink);font:700 14px var(--head);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.tips{margin:0 16px}
+.tips details{border-bottom:1px solid var(--line);padding:13px 4px}
+.tips summary{font:700 16px var(--head);list-style:none;display:flex;align-items:center}
+.tips summary::-webkit-details-marker{display:none}
+.tips summary:after{content:"＋";margin-left:auto;color:var(--mute);font-weight:400}
+.tips details[open] summary:after{content:"－"}
+.tips p{margin:8px 0 0;font-size:14px;color:var(--mute)}
+.driver{padding:20px;text-align:center}
+.driver .ad{font:700 30px/1.45 -apple-system,"Helvetica Neue",Arial,sans-serif;background:#fff;color:#111;border-radius:16px;padding:28px 18px;word-break:break-word}
+.note{font-size:12px;color:var(--mute);margin:10px 0 0;line-height:1.6}
+/* ============ 動畫 ============ */
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes push{from{transform:scale(1)}to{transform:scale(1.12)}}
+@keyframes breath{0%,100%{box-shadow:0 0 0 0 rgba(219,82,54,0)}50%{box-shadow:0 0 26px 2px rgba(219,82,54,.5)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes putt{0%,100%{transform:none}30%{transform:translateY(-3px) rotate(-4deg)}60%{transform:translateY(1px) rotate(2deg)}}
+@keyframes sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes stamp{0%{opacity:0;transform:rotate(-9deg) scale(2.6)}60%{opacity:1;transform:rotate(-9deg) scale(.92)}100%{opacity:.85;transform:rotate(-9deg) scale(1)}}
+@keyframes sweep{0%{transform:rotate(-9deg) translateX(-100%)}100%{transform:rotate(-9deg) translateX(100%)}}
+@keyframes sweepR{0%{transform:rotate(9deg) translateX(100%)}100%{transform:rotate(9deg) translateX(-100%)}}
+@keyframes shutter{0%{transform:scaleY(0);opacity:.9}45%{transform:scaleY(1);opacity:.9}100%{transform:scaleY(1);opacity:0}}
+@keyframes pop{0%{opacity:0;transform:scale(.6) rotate(-8deg)}35%{opacity:1;transform:scale(1.1) rotate(-8deg)}100%{opacity:0;transform:scale(1) rotate(-8deg)}}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  #swoosh{display:none!important}
+}
+</style>
+</head>
+<body>
+<!-- 細線圖示（全站共用一套） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5.5 9.5V20h13V9.5M10 20v-6h4v6"/></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24"><path d="M2.5 13.5l19-7-2.2-2.6-5.6 1.8L8 3.5 6 4.3l4 3.9-4.3 1.6L3.5 8.5 2 9.2zM5 19h14"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6.5a3 3 0 000-6h-5a3 3 0 010-6H16"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10M4 6l1.2 1.2L7.5 5M4 12l1.2 1.2L7.5 11M4 18l1.2 1.2L7.5 17"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M18 9V5H5a2 2 0 000 4h15v10H5a2 2 0 01-2-2V7M16 14h.01"/></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 19V6M3 15h18v4M21 15v-2.5a3 3 0 00-3-3h-7V15"/><circle cx="7" cy="11" r="1.6"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16.5v-4l2-5h12l2 5v4zM6.5 16.5v2M17.5 16.5v2M4.5 12h15M7.5 14.2h.01M16.5 14.2h.01"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9.5L4 20zM8 9h8M8 12.5h5"/></symbol>
+<symbol id="i-sos" viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19zM12 10v4.5M12 17.2h.01"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8h.01"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11.2a7 7 0 10-14 0C5 14.7 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3.5M8 7.5l4-4 4 4M5 12v8h14v-8"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 5v5h-5M4 19v-5h5M19.5 10A8 8 0 006 7.5M4.5 14A8 8 0 0018 16.5"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.5 20c1-3.8 4-5.5 7.5-5.5s6.5 1.7 7.5 5.5"/></symbol>
+<symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M3 19c.8-3.2 3.2-4.6 6-4.6s5.2 1.4 6 4.6M15.5 6.2a3 3 0 010 5.6M17.5 14.6c1.8.6 3 2 3.5 4.4"/></symbol>
+<symbol id="i-food" viewBox="0 0 24 24"><path d="M7 3v18M4.5 3v4.5a2.5 2.5 0 005 0V3M17 21V3c-2.6 1.6-3.2 5.4-2.5 9H17"/></symbol>
+<symbol id="i-sight" viewBox="0 0 24 24"><path d="M3.5 20h17M5.5 20v-9M9.8 20v-9M14.2 20v-9M18.5 20v-9M3 11l9-6.5 9 6.5z"/></symbol>
+<symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3.5h9l4 4V20.5H6zM15 3.5v4h4M9 12h7M9 16h5"/></symbol>
+<symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.3c-.5-.9-1.5-1.4-2.8-1.4-1.6 0-2.7.8-2.7 2 0 2.8 5.7 1.3 5.7 4.2 0 1.2-1.2 2-2.9 2-1.4 0-2.5-.6-3-1.6M12 6v12"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18c1.6 0 2-1 1.5-2-.7-1.5.2-3 2-3H18a3 3 0 003-3c0-5.5-4-10-9-10z"/><path d="M7.5 12h.01M9.5 8h.01M14.5 7.5h.01"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11.5M8 11.5l4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l1.5 4.5-2.2 1.5a11 11 0 005.7 5.7l1.5-2.2L20 15v4a1.5 1.5 0 01-1.6 1.5C10.5 20 4 13.500 3.500 5.600A1.500 1.500 0 015 4z"/></symbol>
+<symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h15M15 4l4 4-4 4M20 16H5M9 12l-4 4 4 4"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 5h12l-2.500 3.500L17 12H5"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.500V8a4 4 0 018 0v2.500"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 18.500z"/></symbol>
+<symbol id="i-pcloud" viewBox="0 0 24 24"><path d="M8 4v1.500M3 9.500h1.500M4.500 6l1 1M11.500 6l-1 1M5.800 11.500A3 3 0 0110.500 8"/><path d="M9.500 19.500a3.500 3.500 0 01-.4-7 4.800 4.800 0 019.300 1A3 3 0 0118 19.500z"/></symbol>
+<symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15.500a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 15.500zM8.500 18.500l-1 2.500M12.500 18.500l-1 2.500M16.500 18.500l-1 2.500"/></symbol>
+<symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 15a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 15M13 12.500l-3 4.500h3.500L11 21.500"/></symbol>
+<symbol id="i-fog" viewBox="0 0 24 24"><path d="M7 13a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 13M5 16.500h14M7 20h10"/></symbol>
+<symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 3v18M4.200 7.500l15.600 9M19.800 7.500l-15.600 9"/></symbol>
+</defs>
+</svg>
+
+<div id="offbar">目前沒有網路，顯示的是上次存下來的資料</div>
+<div id="toast" role="status"></div>
+
+<!-- 封面 -->
+<section id="cover">
+  <div class="art" id="coverArt"></div>
+  <canvas id="sparks"></canvas>
+  <div class="shade"></div>
+  <div class="inner">
+    <div class="kicker" id="cvKicker"></div>
+    <h1 id="cvTitle"></h1>
+    <div class="sub" id="cvSub"></div>
+    <div class="rule"></div>
+    <button id="enter" data-act="enter">點我進入<small id="cvLocal"></small></button>
+  </div>
+</section>
+
+<!-- 登入 -->
+<section id="login">
+  <div class="box">
+    <div class="ph-code">LOGIN <i>/</i> <span>Đăng nhập</span></div>
+    <h2>登入</h2>
+    <div class="ph-line" style="animation:draw .7s both"></div>
+    <p class="note" id="lgNote"></p>
+    <form id="lgForm" autocomplete="off">
+      <div class="field"><label>暱稱（自己取，之後用同一個）</label><input class="inp" id="lgName" maxlength="12" autocapitalize="off" autocomplete="username"></div>
+      <div class="field"><label>個人密碼（至少 4 個字，自己記得就好）</label><input class="inp" id="lgPin" type="password" maxlength="40" autocomplete="current-password"></div>
+      <div class="field" id="lgGroupF"><label>團體密碼（問主辦人）</label><input class="inp" id="lgGroup" type="password" maxlength="60" autocomplete="off"></div>
+      <div class="err" id="lgErr"></div>
+      <button class="btn" id="lgBtn" type="submit">進入行程</button>
+    </form>
+  </div>
+</section>
+
+<!-- 五個分頁 -->
+<main id="app" class="hide">
+  <section class="page" id="p-home"></section>
+  <section class="page" id="p-flight"></section>
+  <section class="page" id="p-itin"></section>
+  <section class="page" id="p-prep"></section>
+  <section class="page" id="p-wallet"></section>
+</main>
+
+<nav id="nav" class="hide"><div class="in">
+  <button data-act="go" data-p="home"><svg class="ic"><use href="#i-home"/></svg>主頁</button>
+  <button data-act="go" data-p="flight"><svg class="ic"><use href="#i-plane"/></svg>航班</button>
+  <button data-act="go" data-p="itin"><svg class="ic"><use href="#i-route"/></svg>行程</button>
+  <button data-act="go" data-p="prep"><svg class="ic"><use href="#i-list"/></svg>準備</button>
+  <button data-act="go" data-p="wallet"><svg class="ic"><use href="#i-wallet"/></svg>記帳</button>
+</div></nav>
+
+<section id="sheet"><div class="sh-hd"><h2 id="shTitle"></h2><button data-act="closeSheet" aria-label="關閉"><svg class="ic l"><use href="#i-x"/></svg></button></div><div class="sh-bd" id="shBody"></div></section>
+<section id="zoom" data-act="closeZoom"><div class="lo" id="zmLo"></div><div class="zh" id="zmZh"></div><div class="tip">點一下關閉・螢幕會保持恆亮</div></section>
+<div id="swoosh"><i></i><b></b></div>
+
+<script>window.APP_VER='1.0.0';window.APP_DATE='2026-11-17';</script>
+<script src="data.js?v=1.0.0"></script>
+<script src="app.js?v=1.0.0"></script>
+</body>
+</html>
