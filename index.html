@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-theme="lacquer">
+<html lang="zh-Hant" data-theme="lacquer" data-ver="1.2.0" data-date="2026-11-17" class="has-cover">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>越南跨年之旅</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://api.open-meteo.com https://open.er-api.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#0e0c0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Family trip">
-<link rel="manifest" href="manifest.webmanifest?v=1.1.0">
-<link rel="icon" href="images/icon-192.png?v=1.1.0">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1.1.0">
+<link rel="manifest" href="manifest.webmanifest?v=1.2.0">
+<link rel="icon" href="images/icon-192.png?v=1.2.0">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1.2.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" media="print" onload="this.media='all'">
 <style>
 /* ============ 風格變數 ============ */
 :root{
@@ -128,13 +128,13 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 #nav button.on{color:var(--ink)}#nav button.on:after{transform:translateX(-50%) scale(1)}
 /* ============ 主頁 ============ */
 .hero .date{font-size:13px;color:var(--mute);letter-spacing:.08em}
-.next-t{font:700 19px/1.4 var(--head);margin:2px 0}
+.next-t{font:700 19px/1.4 var(--head);margin:2px 0;text-wrap:balance}
 .sum{list-style:none;margin:10px 0 0;padding:0;font-size:13.5px}
 .sum li{display:flex;gap:10px;padding:4px 0}.sum li b{font-weight:400;color:var(--mute);width:42px;flex:none;font-variant-numeric:tabular-nums}
 .tools{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .tools button{padding:10px 0 6px;border-radius:12px;font-size:11px;color:var(--mute);line-height:1.3;white-space:nowrap}
-.tools button .ic{display:block;margin:0 auto 6px;width:24px;height:24px;color:var(--ink)}
-.tools button.sos .ic{color:var(--acc)}
+.tools button .ic{display:block;margin:0 auto 7px;width:44px;height:44px;padding:10px;border-radius:14px;background:var(--card2);color:var(--ink)}
+.tools button.sos .ic{color:var(--acc);background:var(--acc-soft)}
 .wx-now{display:flex;align-items:center;gap:12px}
 .wx-now .ic{width:34px;height:34px}
 .wx-days{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;margin-top:12px;text-align:center;font-size:12px}
@@ -172,7 +172,9 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 .tk-note{padding:0 18px 14px;font-size:12px;color:var(--ticket-mute)}
 .route-txt{white-space:nowrap}
 /* ============ 行程 ============ */
-.axis-wrap{position:relative;margin:10px 16px 0;padding-top:40px}
+.axis-wrap{position:sticky;top:calc(env(safe-area-inset-top) - 32px);z-index:6;margin:10px 0 0;padding:40px 16px 8px}
+.axis-wrap.stuck #mascot{opacity:0}
+.axis-wrap.stuck{background:var(--nav);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--line)}
 .axis{display:flex;gap:6px}
 .axis button{flex:1;padding:8px 0 9px;border-radius:12px;background:var(--card);font-size:11px;color:var(--mute);line-height:1.35}
 .axis button b{display:block;font:700 17px var(--head);color:var(--ink);font-variant-numeric:tabular-nums}
@@ -183,7 +185,7 @@ html[data-theme=neon] .card{border:1px solid var(--line)}
 .groups{display:flex;gap:6px;margin:10px 16px 0}
 .groups button{padding:5px 14px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:var(--mute)}
 .groups button.on{border-color:var(--acc);color:var(--acc)}
-.day h2{font:700 21px/1.35 var(--head);margin:0 0 8px}
+.day h2{font:700 21px/1.35 var(--head);margin:0 0 8px;text-wrap:balance}
 .day .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--mute)}
 .day .meta span{display:inline-flex;align-items:center;gap:5px}
 .day .share{position:absolute;right:12px;top:12px;padding:6px;color:var(--mute)}
@@ -241,7 +243,7 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .list .ck .ic{width:13px;height:13px;stroke-width:2.4;opacity:0}
 .list li.done .ck{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}.list li.done .ck .ic{opacity:1}
 .list .tx{flex:1;min-width:0}.list li.done .tx{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--faint)}
-.list .del{color:var(--faint);padding:2px 4px;opacity:.7}
+.list .del{color:var(--faint);padding:9px;margin:-7px -8px -7px 0;opacity:.8}
 .stamp{position:absolute;right:34px;top:50%;margin-top:-17px;padding:3px 9px;border:2px solid var(--acc);border-radius:6px;color:var(--acc);
   font:700 12px var(--head);letter-spacing:.12em;transform:rotate(-9deg);transform-origin:100% 50%;opacity:0;pointer-events:none;background:var(--bg);white-space:nowrap}
 .list li.done .stamp{opacity:.85}
@@ -276,7 +278,7 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .led .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .led .n small{color:var(--mute);font-size:11px;margin-left:4px}
 .led .v{font-variant-numeric:tabular-nums;white-space:nowrap}
-.led .x{color:var(--faint);padding:0 2px}
+.led .x{color:var(--faint);padding:8px 5px;margin:-8px -5px -8px 0;min-width:26px}
 .dayhd{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);letter-spacing:.08em;margin:14px 0 2px}
 .settle li{display:flex;align-items:center;gap:8px;padding:9px 0;font-size:14.5px}
 .settle{list-style:none;margin:0;padding:0}
@@ -312,6 +314,38 @@ html[data-theme=neon] #swoosh i{height:8px;box-shadow:0 0 30px 10px var(--acc),0
 .driver{padding:20px;text-align:center}
 .driver .ad{font:700 30px/1.45 -apple-system,"Helvetica Neue",Arial,sans-serif;background:#fff;color:#111;border-radius:16px;padding:28px 18px;word-break:break-word}
 .note{font-size:12px;color:var(--mute);margin:10px 0 0;line-height:1.6}
+/* ============ v1.2 的調整 ============ */
+:root{--nav:rgba(22,19,17,.82)}
+html[data-theme=indo]{--nav:rgba(234,220,182,.88)}
+html[data-theme=neon]{--nav:rgba(18,10,42,.78)}
+html{touch-action:manipulation}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:6px}
+/* 瀏海／狀態列那一條：內容捲過去時不會跟時間電量疊在一起；淺色風格用深色底，白色的狀態列文字才看得到 */
+body:before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--nav);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);z-index:96;pointer-events:none}
+html[data-theme=indo] body:before{background:var(--ink)}
+html.has-cover body:before{display:none}
+html[data-big] body{zoom:1.14}
+html[data-theme=lacquer] body{background:radial-gradient(130% 440px at 50% -70px,#2c1811 0,rgba(44,24,17,0) 100%) no-repeat var(--bg)}
+html[data-theme=lacquer] .card{background-image:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0) 46%)}
+#nav{background:var(--nav);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2)}
+.src{text-align:center;font-size:11px;color:var(--faint);padding:0 0 12px}
+.src button{color:var(--mute);margin-left:8px;padding:6px 4px}
+.notice{border-left:3px solid var(--acc)}
+.notice p{margin:6px 0 0;font-size:14.5px}
+.notice p b{font-weight:400;color:var(--mute);font-size:12px;margin-right:8px}
+.notes{margin-top:14px;font-size:13.5px}
+.notes summary{color:var(--mute);font-size:12px;letter-spacing:.08em;list-style:none;padding:4px 0}
+.notes summary::-webkit-details-marker{display:none}
+.notes summary:after{content:" ＋"}.notes[open] summary:after{content:" －"}
+.notes .row{padding:7px 0;border-bottom:1px solid var(--line)}
+.notes i{width:12px;height:12px;border-radius:3px;flex:none}
+.showpw{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);margin-top:14px}
+.showpw input{width:18px;height:18px;accent-color:var(--acc)}
+#zoom .spk{margin-top:30px;padding:12px 24px;border-radius:99px;border:1.5px solid #111;color:#111;font-size:15px;display:inline-flex;gap:8px;align-items:center}
+.tk-note a{color:inherit}
+.me{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--acc-soft);font-size:14.5px;line-height:1.7}
+.foot span{letter-spacing:.06em}
+input[type=date].inp{min-height:44px;-webkit-appearance:none;appearance:none}
 /* ============ 插圖 ============ */
 .art{stroke:var(--ink);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;overflow:visible;pointer-events:none}
 .art .a{stroke:var(--acc)}.art .f{fill:var(--acc);stroke:none}.art .d{opacity:.42}
@@ -458,6 +492,7 @@ html:not([data-theme=indo]) #swoosh em{--acc:var(--bg)}
 <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15.500a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 15.500zM8.500 18.500l-1 2.500M12.500 18.500l-1 2.500M16.500 18.500l-1 2.500"/></symbol>
 <symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 15a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 15M13 12.500l-3 4.500h3.500L11 21.500"/></symbol>
 <symbol id="i-fog" viewBox="0 0 24 24"><path d="M7 13a4 4 0 01-.5-8 5.500 5.500 0 0110.700 1.200A3.500 3.500 0 0117 13M5 16.500h14M7 20h10"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.500H4zM15.500 9.500a3.500 3.500 0 010 5M18 7a7 7 0 010 10"/></symbol>
 <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 3v18M4.200 7.500l15.600 9M19.800 7.500l-15.600 9"/></symbol>
 </defs>
 </svg>
@@ -491,7 +526,8 @@ html:not([data-theme=indo]) #swoosh em{--acc:var(--bg)}
       <div class="field"><label>暱稱（自己取，之後用同一個）</label><input class="inp" id="lgName" maxlength="12" autocapitalize="off" autocomplete="username"></div>
       <div class="field"><label>個人密碼（至少 4 個字，自己記得就好）</label><input class="inp" id="lgPin" type="password" maxlength="40" autocomplete="current-password"></div>
       <div class="field" id="lgGroupF"><label>團體密碼（問主辦人）</label><input class="inp" id="lgGroup" type="password" maxlength="60" autocomplete="off"></div>
-      <div class="err" id="lgErr"></div>
+      <label class="showpw"><input type="checkbox" id="lgShow"> 顯示密碼</label>
+      <div class="err" id="lgErr" role="alert"></div>
       <button class="btn" id="lgBtn" type="submit">進入行程</button>
     </form>
   </div>
@@ -514,12 +550,11 @@ html:not([data-theme=indo]) #swoosh em{--acc:var(--bg)}
   <button data-act="go" data-p="wallet"><svg class="ic"><use href="#i-wallet"/></svg>記帳</button>
 </div></nav>
 
-<section id="sheet"><div class="sh-hd"><h2 id="shTitle"></h2><button data-act="closeSheet" aria-label="關閉"><svg class="ic l"><use href="#i-x"/></svg></button></div><div class="sh-bd" id="shBody"></div></section>
-<section id="zoom" data-act="closeZoom"><div class="lo" id="zmLo"></div><div class="zh" id="zmZh"></div><div class="tip">點一下關閉・螢幕會保持恆亮</div></section>
+<section id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle"><div class="sh-hd"><h2 id="shTitle"></h2><button data-act="closeSheet" aria-label="關閉"><svg class="ic l"><use href="#i-x"/></svg></button></div><div class="sh-bd" id="shBody"></div></section>
+<section id="zoom" data-act="closeZoom"><div class="lo" id="zmLo" lang="vi"></div><div class="zh" id="zmZh"></div><button class="spk" data-act="speak"><svg class="ic"><use href="#i-sound"/></svg>聽發音</button><div class="tip">點一下關閉・螢幕會保持恆亮</div></section>
 <div id="swoosh"><i></i><em></em><b></b></div>
 
-<script>window.APP_VER='1.1.0';window.APP_DATE='2026-11-17';</script>
-<script src="data.js?v=1.1.0"></script>
-<script src="app.js?v=1.1.0"></script>
+<script src="data.js?v=1.2.0"></script>
+<script src="app.js?v=1.2.0"></script>
 </body>
 </html>

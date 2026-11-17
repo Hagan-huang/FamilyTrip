@@ -1,5 +1,5 @@
 /**
- * 越南跨年之旅 — Google 試算表後端（Apps Script）  版本 1.0.0
+ * 越南跨年之旅 — Google 試算表後端（Apps Script）  版本 1.2.0
  * 貼到：試算表 → 擴充功能 → Apps Script，把原本的內容全部換成這份
  * 部署：部署 → 新增部署作業 → 網頁應用程式 → 執行身分「我」、存取權「所有人」
  * ↓↓↓ 第 7 行：把引號裡的字改成你們的團體密碼（GitHub 上的版本不要放真的密碼）
@@ -11,10 +11,12 @@ const CHUNK = 45000;          // 個人資料每格最多字數
 const MAX_FAIL = 8;           // 個人密碼最多錯幾次
 const LOCK_MIN = 15;          // 鎖定幾分鐘
 const BLANK_ROWS = 200;       // 行程分頁預留的空白列
+const GROUP_MAX_FAIL = 20;    // 團體密碼 10 分鐘內最多錯幾次（全部人合計），超過就暫停登入
+const MAX_MEMBERS = 30;       // 成員上限，避免被灌帳號
 
 const SH = {
   members: '成員', splits: '分帳紀錄', data: '個人資料',
-  days: '每日', itin: '行程', backup: '行程備份'
+  days: '每日', itin: '行程', backup: '行程備份', hotels: '住宿', notice: '公告'
 };
 const HEAD = {
   members: ['暱稱', 'salt', '密碼雜湊', '加入時間', '失敗次數', '鎖定到', '登入憑證'],
@@ -22,7 +24,9 @@ const HEAD = {
   data: ['暱稱', '更新時間', '資料1', '資料2', '資料3', '資料4'],
   days: ['日期', '標題', '住宿', '人數'],
   itin: ['日期', '時間', '類型', '內容', '交通', '地點', '關門時間', '組別', '人數', '待定', '備註'],
-  backup: ['備份時間', '原因', '日期', '時間', '類型', '內容', '交通', '地點', '關門時間', '組別', '人數', '待定', '備註']
+  backup: ['備份時間', '原因', '日期', '時間', '類型', '內容', '交通', '地點', '關門時間', '組別', '人數', '待定', '備註'],
+  hotels: ['名稱', '越南文名稱', '越南文地址', '電話', '入住時間', '退房時間', '最近車站', '住哪幾晚'],
+  notice: ['日期', '公告內容']
 };
 const TYPES = ['景點', '餐廳', '交通', '備註'];
 const TRANS = ['步行', 'Grab', '計程車', '包車', '地鐵', '公車', '船', '飛機'];
@@ -38,13 +42,23 @@ const ITIN_NOTE =
   '內容裡寫「集合」或「會合」，網頁會特別標出來。\n' +
   '開頭不要用 = + - @。';
 
+const HOTEL_NOTE =
+  '【住宿】一間飯店一列。\n' +
+  '越南文地址：「給司機看」「回住宿」會用到，請從訂房確認信複製。\n' +
+  '住哪幾晚：用逗號分開，例如 12/31, 1/1, 1/2（跟「每日」的日期寫法一致）。\n' +
+  '注意：這一頁拿到網址的人都看得到，不要放訂位代號、個人電話。';
+const NOTICE_NOTE =
+  '【公告】寫在這裡的內容會出現在每個人的主頁最上面。\n' +
+  '一列一則，最新的寫在最下面；網頁顯示最後 3 則。不需要了就把那一列刪掉。\n' +
+  '注意：公告不用登入就看得到，不要放個人資料。';
+
 /* ================= 入口 ================= */
 
 function doGet(e) {
   try {
     const a = (e && e.parameter && e.parameter.action) || 'ping';
     if (a === 'itin') return out(readItin());
-    return out({ ok: true, app: 'familytrip', ver: '1.0.0' });
+    return out({ ok: true, app: 'familytrip', ver: '1.2.0' });
   } catch (err) {
     return out({ ok: false, err: 'SERVER', msg: String(err && err.message || err) });
   }
@@ -66,6 +80,7 @@ function doPost(e) {
       case 'delSplit':  return out(withLock(function () { return authed(b, function (m) { return delSplit(m.name, b.id); }); }));
       case 'seedItin':  return out(withLock(function () { return authed(b, function () { return seedItin(b.days, b.items); }); }));
       case 'patchItin': return out(withLock(function () { return authed(b, function () { return patchItin(b.patches); }); }));
+      case 'logout':    return out(withLock(function () { return authed(b, function (m) { return logout(m, b.token); }); }));
       default:          return out(fail('BAD', '不認得的動作'));
     }
   } catch (err) {
@@ -117,12 +132,14 @@ function sheet(key) {
   const book = ss();
   let sh = book.getSheetByName(SH[key]);
   if (sh) return sh;
-  sh = book.insertSheet(SH[key]);
+  try { sh = book.insertSheet(SH[key]); } catch (e) { sh = book.getSheetByName(SH[key]); if (!sh) throw e; return sh; }
   const head = HEAD[key];
   sh.getRange(1, 1, 1, head.length).setValues([head]).setFontWeight('bold');
   sh.setFrozenRows(1);
   if (key === 'itin') formatItin(sh);
   if (key === 'days') sh.getRange(2, 1, 60, 4).setNumberFormat('@');
+  if (key === 'hotels') { sh.getRange(2, 1, 30, head.length).setNumberFormat('@'); sh.getRange(1, 1).setNote(HOTEL_NOTE); }
+  if (key === 'notice') { sh.getRange(2, 1, 60, head.length).setNumberFormat('@'); sh.getRange(1, 1).setNote(NOTICE_NOTE); }
   if (key === 'members' || key === 'data' || key === 'splits') {
     sh.getRange(2, 1, Math.max(sh.getMaxRows() - 1, 1), head.length).setNumberFormat('@');
   }
@@ -143,6 +160,15 @@ function formatItin(sh) {
 /** 第一次使用時手動執行一次也可以：建立所有分頁 */
 function setup() {
   Object.keys(SH).forEach(function (k) { sheet(k); });
+}
+
+/** 只讀、不建立分頁（給不用登入的讀取用） */
+function rowsIfExists(key) {
+  const sh = ss().getSheetByName(SH[key]);
+  if (!sh) return [];
+  const last = sh.getLastRow();
+  if (last < 2) return [];
+  return sh.getRange(2, 1, last - 1, Math.max(sh.getLastColumn(), HEAD[key].length)).getValues();
 }
 
 function rows(key) {
@@ -173,8 +199,14 @@ function memberNames() {
 }
 function tokenHash(token) { return sha(token + '|' + GROUP_PASSWORD); }
 
+/** 團體密碼防暴力破解：10 分鐘內全部人合計錯太多次就暫停登入（已登入的人不受影響） */
+function groupFails() { return Number(CacheService.getScriptCache().get('gfail') || 0); }
+function groupFailed() { CacheService.getScriptCache().put('gfail', String(groupFails() + 1), 600); }
+
 function login(b) {
-  if (String(b.group || '') !== GROUP_PASSWORD) return fail('GROUP', '團體密碼不對');
+  if (groupFails() >= GROUP_MAX_FAIL) return fail('BUSY', '團體密碼錯太多次，登入暫停 10 分鐘，請稍後再試');
+  if (String(b.group || '') !== GROUP_PASSWORD) { groupFailed(); return fail('GROUP', '團體密碼不對'); }
+  sheet('hotels'); sheet('notice');           // 改版後第一次登入時，自動補上新的分頁
   const name = safe(b.name, 12, '暱稱');
   const pin = String(b.pin || '');
   if (!name) return fail('BAD', '請輸入暱稱');
@@ -184,6 +216,7 @@ function login(b) {
   let m = findMember(name);
   let isNew = false;
   if (!m) {
+    if (memberNames().length >= MAX_MEMBERS) return fail('FULL', '成員人數已達上限，請聯絡主辦人');
     isNew = true;
     const salt = Utilities.getUuid();
     sh.appendRow([name, salt, sha(salt + '|' + pin), new Date(now).toISOString(), '0', '0', '[]']);
@@ -207,6 +240,14 @@ function login(b) {
   sh.getRange(m.row, 5, 1, 3).setValues([['0', '0', JSON.stringify(tokens)]]);
   const d = readData(name);
   return { ok: true, token: token, isNew: isNew, name: name, members: memberNames(), data: d.data, ts: d.ts };
+}
+
+/** 登出：讓這支手機的登入憑證失效 */
+function logout(m, token) {
+  const h = tokenHash(String(token));
+  const left = m.tokens.filter(function (t) { return t !== h; });
+  sheet('members').getRange(m.row, 7).setValue(JSON.stringify(left));
+  return { ok: true };
 }
 
 /** 驗證登入憑證（憑證是用個人密碼登入後才拿得到，改團體密碼會讓所有憑證失效） */
@@ -234,7 +275,7 @@ function readData(name) {
 function saveData(name, data, ts) {
   data = String(data == null ? '' : data);
   if (data.length > CHUNK * 20) return fail('BIG', '個人資料太大了');
-  if (data && data.charAt(0) !== '{') return fail('BAD', '資料格式錯誤');
+  if (data) { try { const o = JSON.parse(data); if (!o || typeof o !== 'object' || Array.isArray(o)) throw 0; } catch (e) { return fail('BAD', '資料格式錯誤'); } }
   const sh = sheet('data');
   const parts = [];
   for (let i = 0; i < data.length; i += CHUNK) parts.push(data.substring(i, i + CHUNK));
@@ -314,7 +355,16 @@ function readItin() {
       pax: String(r[8]).trim(), tbd: truthy(r[9]), note: String(r[10] || '')
     };
   });
-  return { ok: true, days: days, items: items, ts: Date.now() };
+  const hotels = rowsIfExists('hotels').filter(function (r) { return String(r[0]).trim(); }).map(function (r) {
+    return {
+      name: String(r[0]).trim(), nameLocal: String(r[1]).trim(), addrLocal: String(r[2]).trim(), tel: String(r[3]).trim(),
+      checkin: String(r[4]).trim(), checkout: String(r[5]).trim(), station: String(r[6]).trim(), nights: String(r[7]).trim()
+    };
+  });
+  const notices = rowsIfExists('notice').filter(function (r) { return String(r[1]).trim(); }).map(function (r) {
+    return { date: String(r[0]).trim(), text: String(r[1]).trim().substring(0, 300) };
+  }).slice(-3);
+  return { ok: true, days: days, items: items, hotels: hotels, notices: notices, ts: Date.now() };
 }
 
 function itemRow(it) {
@@ -330,6 +380,7 @@ function seedItin(days, items) {
   const cur = readItin();
   if (cur.items.length) return { ok: true, seeded: false };
   if (!items || !items.length) return { ok: true, seeded: false };
+  if (items.length > 300 || (days && days.length > 40)) return fail('BIG', '行程太多了');
   const shD = sheet('days'), shI = sheet('itin');
   if (!cur.days.length && days && days.length) {
     const d = days.map(function (x) { return [safe(x.date, 10), safe(x.title, 60), safe(x.hotel, 80), safe(x.pax, 6)]; });
@@ -343,6 +394,7 @@ function seedItin(days, items) {
 /** 整天覆寫：每個 id 只套用一次，套用前先備份那一天 */
 function patchItin(patches) {
   if (!patches || !patches.length) return { ok: true, applied: [] };
+  if (patches.length > 10) return fail('BIG', '一次最多 10 筆覆寫');
   const props = PropertiesService.getScriptProperties();
   let done = [];
   try { done = JSON.parse(props.getProperty('patches') || '[]'); } catch (e) { done = []; }
@@ -350,7 +402,7 @@ function patchItin(patches) {
   const applied = [];
   patches.forEach(function (p) {
     const id = String(p.id || '');
-    if (!id || done.indexOf(id) >= 0 || !p.date || !p.items) return;
+    if (!id || done.indexOf(id) >= 0 || !p.date || !p.items || p.items.length > 80) return;
     const all = rows('itin').filter(function (r) { return String(r[0]).trim() || String(r[3]).trim(); });
     const keep = [], old = [];
     all.forEach(function (r) { (String(r[0]).trim() === String(p.date) ? old : keep).push(r.slice(0, HEAD.itin.length)); });
